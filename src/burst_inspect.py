@@ -19,6 +19,12 @@
 # along with this program; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
+# 
+# 
+# Usage Sample: ./burst_inspect.py ../434M_434M_10M_20191204_210516Z_tpms/
+# Where /434M_434M_10M_20191204_210516Z_tpms is a folder with all the *.dat and timestamp.txt files
+# 
+# 
 #
 
 import sys
@@ -670,8 +676,12 @@ def get_cfile_list(path):
 	path_glob = os.path.join(path, 'file*.dat')
 	#path_glob = os.path.join(path, '*.cfile')
 	filenames = glob.glob(path_glob)
-	filenames = sorted(filenames, key=lambda s: int(s.split('_')[1]))
+	filenames = sorted(filenames, key=lambda s: get_file_ordinal(s))
 	return filenames
+
+def get_file_ordinal(path):
+	file_dir, file_name = os.path.split(path)
+	return int(file_name.split('_')[1])
 
 def translate_burst(burst, new_frequency):
 	if burst is None:
