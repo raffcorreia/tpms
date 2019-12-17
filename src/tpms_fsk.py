@@ -55,6 +55,8 @@ class FSKDemodulator(gr.top_block):
 
 		samp_rate = sampling_rate
 		#symbol_rate = 9920
+		print("samp_rate   = ", samp_rate)
+		print("symbol_rate = ", symbol_rate)
 		self.samples_per_symbol = float(samp_rate) / symbol_rate
 
 		omega = self.samples_per_symbol * 1.0
@@ -187,7 +189,8 @@ if __name__ == '__main__':
 
 			offset_seconds = filename.split('_')[2]
 			offset_seconds = float(offset_seconds.split('.dat')[0])
-			burst_timestamp = start_timestamp + iso8601.timedelta(seconds=offset_seconds)
+			# burst_timestamp = start_timestamp + iso8601.timedelta(seconds=offset_seconds)
+			burst_timestamp = start_timestamp + datetime.timedelta(seconds=offset_seconds)
 
 			source_data = numpy.fromfile(path, dtype=numpy.complex64)
 			#packet_info = packet_classify(source_data, sampling_rate)

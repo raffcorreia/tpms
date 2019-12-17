@@ -33,7 +33,7 @@ import sys
 import os.path
 import datetime
 import pytz
-from iso8601 import iso8601
+# from iso8601 import iso8601
 
 from burst_detector import *
 
@@ -51,7 +51,10 @@ class top_block(gr.top_block):
         else:
             raise RuntimeError('Unsupported sampling rate "%s"' % sampling_rate)
 
-        start_timestamp = iso8601.datetime.strptime(start_date + ' ' + start_time, '%Y%m%d %H%M%Sz')
+        # start_timestamp = iso8601.datetime.strptime(start_date + ' ' + start_time, '%Y%m%d %H%M%Sz')
+        start_timestamp = datetime.datetime.strptime(start_date + ' ' + start_time, '%Y%m%d %H%M%Sz')
+
+        print(start_timestamp)
         utc = pytz.utc
         start_timestamp = utc.localize(start_timestamp)
         f_ts = open('timestamp.txt', 'w')
